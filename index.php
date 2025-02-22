@@ -1,5 +1,7 @@
 <?php 
 
+session_start();
+
 require_once('functions/fabs.php');
 
 ?>
@@ -12,10 +14,16 @@ require_once('functions/fabs.php');
     <title>Car</title>
 </head>
 <body>
+    <?php
+    if(isset($_SESSION['error_message'])) {
+        echo '<p style="color: red;">' . $_SESSION['error_message'] . '</p>';
+        unset($_SESSION['error_message']);
+    }
+    ?>
     <table border="1">
         <thead>
             <tr>
-                <form action="" method="post">
+                <form action="adicionar_action.php" method="post">
                     <td>
                         <select name="fabrica">
                             <?php fabs(); ?>
