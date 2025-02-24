@@ -17,7 +17,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if(!empty($carro->getFab() && $carro->getModel() && $carro->getVersion() && $carro->getYear() && $carro->getColor())) {
       
-        adicionarAction();
+        adicionarAction($carro->getFab(), $carro->getModel(), $carro->getVersion(), $carro->getYear(), $carro->getColor());
+        header("Location: index.php");
+        exit;
 
     } else {
 
