@@ -17,6 +17,8 @@ function adicionarAction($fab, $model, $version, $year, $color) {
 
     }
 
+    $novoId = str_pad(count($dados) + 1, 3, '0', STR_PAD_LEFT);
+
     $novoCarro = [
         "fab" => $fab,
         "model" => $model,
@@ -25,7 +27,7 @@ function adicionarAction($fab, $model, $version, $year, $color) {
         "color" => $color
     ];
 
-    $dados[] = $novoCarro;
+    $dados[$novoId] = $novoCarro;
     
     file_put_contents($arq, json_encode($dados, JSON_PRETTY_PRINT));
 

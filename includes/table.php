@@ -43,13 +43,14 @@ require_once('functions/fabs.php');
             <?php
             
             $arq = "data/cars.json";
+            $infos = [];
 
             if(file_exists($arq)) {
                 $arq = file_get_contents($arq);
                 $infos = json_decode($arq, true);
             }
 
-            foreach($infos as $info) : 
+            foreach($infos as $id => $info) : 
             
             ?>
             <tr>
@@ -58,6 +59,7 @@ require_once('functions/fabs.php');
                 <td><?=$info["version"];?></td>
                 <td><?=$info["year"];?></td>
                 <td><?=$info["color"];?></td>
+                <td><a href="editar_action.php?id=<?=$id;?>">Editar</a></td>
             </tr>
             <?php endforeach; ?>
 
