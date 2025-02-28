@@ -59,7 +59,7 @@ require_once('functions/fabs.php');
                 <td><?=$info["version"];?></td>
                 <td><?=$info["year"];?></td>
                 <td><?=$info["color"];?></td>
-                <td><a href="editar_action.php?id=<?=$id;?>">Editar</a></td>
+                <td><a href="editar.php?id=<?=$id;?>">Editar</a></td>
             </tr>
             <?php endforeach; ?>
 

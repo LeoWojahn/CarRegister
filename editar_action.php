@@ -2,39 +2,40 @@
 
 session_start();
 
-require_once("functions/fabsEdit.php");
+require_once "class/Car.php";
+require_once "functions/editarAction.php";
 
-$id = htmlspecialchars($_GET['id']);
-$arq = "data/cars.json";
+if($_SERVER["REQUEST_METHOD"] == "POST") {
 
-$jsonData = file_get_contents($arq);
-$data = json_decode($jsonData, true);
+    $carro = new Car;
 
-if ($data === null) {
+    $carro->setFab(htmlspecialchars($_POST['fabrica']));
+    $carro->setModel(htmlspecialchars($_POST['modelo']));
+    $carro->setVersion(htmlspecialchars($_POST['versao']));
+    $carro->setYear(htmlspecialchars(intval($_POST['ano'])));
+    $carro->setColor(htmlspecialchars($_POST['cor']));
 
-    $_SESSION['error_message'] = "Erro: ao decodificar o JSON.";
+    $id = $_POST['id'];
+
+
+    if(!empty($carro->getFab() && $carro->getModel() && $carro->getVersion() && $carro->getYear() && $carro->getColor())) {
+      
+        editarAction($carro->getFab(), $carro->getModel(), $carro->getVersion(), $carro->getYear(), $carro->getColor(), $id);
+        header("Location: index.php");
+        exit;
+
+    } else {
+
+        $_SESSION['error_message'] = "Erro: preencha todos os dados.";    
+        header("Location: editar.php?id=$id");
+        exit();
+
+    }
+
+} else {
+
+    $_SESSION['error_message'] = "Erro: método enviado pelo formulário não aceito.";    
     header("Location: index.php");
-    exit;
+    exit();
 
 }
-
-$info = $data[$id];
-
-?>
-
-<form action="" method="post">
-    <select name="fabrica">
-        <?php
-        
-        $fabricaSelecionada = $info['fab']; // Valor da fábrica atual
-        fabsEdit($fabricaSelecionada); // Gera as opções do select com a selecionada
-
-        ?>
-    </select>
-    <input type="text" name="modelo" value="<?=$info['model'];?>">
-    <input type="text" name="versao" value="<?=$info['version'];?>">
-    <input type="number" name="ano" value="<?=$info['year'];?>">
-    <input type="text" name="cor" value="<?=$info['color'];?>">
-    <input type="submit" value="Adicionar">
-
-</form>
