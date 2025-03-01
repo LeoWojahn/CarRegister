@@ -25,7 +25,7 @@ require_once('functions/fabs.php');
                     <td>
                         <input type="text" name="cor">
                     </td>
-                    <td>
+                    <td colspan="2">
                         <input type="submit" value="Adicionar">
                     </td>
                 </form>
@@ -60,6 +60,7 @@ require_once('functions/fabs.php');
                 <td><?=$info["year"];?></td>
                 <td><?=$info["color"];?></td>
                 <td><a href="editar.php?id=<?=$id;?>">Editar</a></td>
+                <td><a href="excluir.php?id=<?=$id;?>">Excluir</a></td>
             </tr>
             <?php endforeach; ?>
 
